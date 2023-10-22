@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Mono;
+
 @RestController
 public class InventoryService {
 
 	List<Inventory> inventoryList = new ArrayList<Inventory>();
 
 	@GetMapping("/inventory/details/{productId}")
-	public Inventory getinventoryDetails(@PathVariable("productId") Long productid) {
+	public Mono<Inventory> getinventoryDetails(@PathVariable("productId") Long productid) {
 		
-		Inventory inventory = getInventory(productid);
+		Mono<Inventory> inventory = Mono.just(getInventory(productid));
 		
 		return inventory;
 	}
